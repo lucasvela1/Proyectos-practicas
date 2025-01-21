@@ -38,8 +38,8 @@ public class PlanDeEstudio{
 
 
    private boolean aproboCuatrimestres(Alumno alumno,byte cuatrimestre, Materia materiaevaluada){
-       for (Materia m: materias){
-         if ((m.getCuatrimestre()-materiaevaluada.getCuatrimestre()<0) && (m.getCuatrimestre()-materiaevaluada.getCuatrimestre()>=-cuatrimestre)){
+       for (Materia m: this.materias){
+         if ((m.getCuatrimestre()-materiaevaluada.getCuatrimestre()<0) && (m.getCuatrimestre()-materiaevaluada.getCuatrimestre()<=-cuatrimestre)){
             if (!alumno.getMateriasAprobadas().contains(m)){
                 return false;
             }

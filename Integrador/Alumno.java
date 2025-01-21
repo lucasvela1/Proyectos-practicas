@@ -63,15 +63,14 @@ public class Alumno{
     }
 
     public void cargarNotaParcial(byte nota, Materia materia){
-        if (nota>materia.getNotaPromocion()){
+        if (nota>=materia.getNotaPromocion()){
             this.materiasAprobadas.add(materia);
             if (materia.isOptativa()){
                 this.optativasAprobadas++;
             }
             this.materiasHabilitadas.remove(materia);
             this.materiasAnotadas.remove(materia);
-            materia.setNotaTotal(nota);
-        }else if (nota>4){
+        }else if (nota>=4){
             if (!this.materiasHabilitadas.contains(materia)){
             this.materiasHabilitadas.add(materia);
             }
@@ -89,18 +88,25 @@ public class Alumno{
             }
             this.materiasAnotadas.remove(materia);
         }
-        materia.setNotaTotal(nota);
     }
 
     public boolean seRecibio(Carrera carrera){
         PlanDeEstudio planEstudio=carrera.getPlan();
         for (Materia m:planEstudio.materias){
-            if (!m.isOptativa() && !materiasAprobadas.contains(m)){
+            if (!m.isOptativa() && !this.materiasAprobadas.contains(m)){
                 return false;
             }
         }
-        return (optativasAprobadas >= planEstudio.getCantidadOptativasNecesarias());
+        return (this.optativasAprobadas >= planEstudio.getCantidadOptativasNecesarias());
     }
+
+    /*public double promedio(){
+        double suma=0;
+        for (Materia m : this.materiasAprobadas) {
+            suma+=m.getNotaTotal();
+        }
+        return (suma/(this.materiasAprobadas.size()));
+    }*/
 
     @Override
     public String toString() {

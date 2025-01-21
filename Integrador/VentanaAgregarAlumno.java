@@ -13,7 +13,7 @@ public class VentanaAgregarAlumno extends JFrame {
 
     public VentanaAgregarAlumno (JFrame VentanaAlumnos){
         this.setTitle("Agregar alumno");
-        this.setSize(400,300);
+        this.setSize(600,300);
         this.setLayout(new BorderLayout());
 
         JPanel panelCentral = new JPanel(new GridLayout(5,2,10,10));

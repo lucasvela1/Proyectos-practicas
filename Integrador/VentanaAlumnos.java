@@ -73,7 +73,7 @@ public class VentanaAlumnos extends JFrame{
                         Materia materiaSeleccionada= (Materia) JOptionPane.showInputDialog(VentanaAlumnos.this, "Seleccione una materia para anotar al alumno", "Anotar a materia", JOptionPane.QUESTION_MESSAGE,null,materiasDisponibles.toArray(),materiasDisponibles.get(0));       
                         if (materiaSeleccionada !=null){
                             alumnoSeleccionado.addMateriaAnotada(materiaSeleccionada);
-                            JOptionPane.showMessageDialog(VentanaAlumnos.this,"El alumno fue anotado exitosamente a la materia"+ materiaSeleccionada.getNombre(),"Exito", JOptionPane.INFORMATION_MESSAGE);
+                            JOptionPane.showMessageDialog(VentanaAlumnos.this,"El alumno fue anotado exitosamente a la materia "+ materiaSeleccionada.getNombre(),"Exito", JOptionPane.INFORMATION_MESSAGE);
                             actualizarAreaTexto(alumnoSeleccionado);
                         }
                     }
@@ -96,7 +96,7 @@ public class VentanaAlumnos extends JFrame{
                 public void actionPerformed(ActionEvent e){
                     Alumno alumnoSeleccionado = (Alumno) comboAlumnos.getSelectedItem();
                     if (alumnoSeleccionado==null){
-                        JOptionPane.showMessageDialog(VentanaAlumnos.this,"Debe seleccionar un alumno antes de anotarlo", "Error", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(VentanaAlumnos.this,"Debe seleccionar un alumno antes de colocarle la nota parcial", "Error", JOptionPane.ERROR_MESSAGE);
                     }else{
                         ArrayList<Materia> materiasAnotadas=alumnoSeleccionado.getMateriasAnotadas();
                         if (materiasAnotadas.isEmpty()){
@@ -135,7 +135,7 @@ public class VentanaAlumnos extends JFrame{
                 public void actionPerformed(ActionEvent e){
                     Alumno alumnoSeleccionado = (Alumno) comboAlumnos.getSelectedItem();
                     if (alumnoSeleccionado==null){
-                        JOptionPane.showMessageDialog(VentanaAlumnos.this,"Debe seleccionar un alumno antes de anotarlo", "Error", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(VentanaAlumnos.this,"Debe seleccionar un alumno antes de colocarle nota final", "Error", JOptionPane.ERROR_MESSAGE);
                     }else{
                         ArrayList<Materia> materiasAnotadas=alumnoSeleccionado.getMateriasAnotadas();
                         if (materiasAnotadas.isEmpty()){
@@ -186,17 +186,29 @@ public class VentanaAlumnos extends JFrame{
     
     texto.append("Materias Anotadas:\n");
     for (Materia materia : alumnoSeleccionado.getMateriasAnotadas()) {
-        texto.append("- ").append(materia.getNombre()).append(" (anotada)").append("\n");
+        texto.append("- ").append(materia.getNombre()).append(". Cuatrimestre: ").append(materia.getCuatrimestre()).append(" (anotada)");
+        if (materia.isOptativa()){
+            texto.append(" (Optativa)");
+        }
+        texto.append("\n");
     }
 
     texto.append("\nMaterias Habilitadas:\n");
     for (Materia materia : alumnoSeleccionado.getMateriasHabilitadas()) {
-        texto.append("- ").append(materia.getNombre()).append(" (habilitada)").append("\n");
+        texto.append("- ").append(materia.getNombre()).append(". Cuatrimestre: ").append(materia.getCuatrimestre()).append(" (habilitada)");
+        if (materia.isOptativa()){
+            texto.append(" (Optativa)");
+        }
+        texto.append("\n");
     }
 
     texto.append("\nMaterias Aprobadas:\n");
     for (Materia materia : alumnoSeleccionado.getMateriasAprobadas()) {
-        texto.append("- ").append(materia.getNombre()).append(" (aprobada, Nota: ").append(materia.getNotaTotal()).append(")").append("\n");
+        texto.append("- ").append(materia.getNombre()).append(". Cuatrimestre: ").append(materia.getCuatrimestre()).append(" (aprobada)");
+        if (materia.isOptativa()){
+            texto.append(" (Optativa)");
+        } 
+        texto.append("\n");
     }
 
     texto.append("\nMaterias Disponibles para Anotarse:\n");
@@ -205,11 +217,15 @@ public class VentanaAlumnos extends JFrame{
         if (plan.puedeAnotarse(alumnoSeleccionado, materia)
                 && !alumnoSeleccionado.getMateriasAnotadas().contains(materia)
                 && !alumnoSeleccionado.getMateriasAprobadas().contains(materia)) {
-            texto.append("- ").append(materia.getNombre()).append("\n");
+            texto.append("- ").append(materia.getNombre()).append(". Cuatrimestre: ").append(materia.getCuatrimestre());
+            if (materia.isOptativa()){
+                texto.append(" (Optativa)");
+            }
+            texto.append("\n");
         }
     }
     if (alumnoSeleccionado.seRecibio(alumnoSeleccionado.getCarrera())){
-        texto.append("\nEl alumno se ha recibido\n");
+        texto.append("\nEl alumno se ha recibido con promedio: \n");
     }
     
     areaAlumno.setText(texto.toString());

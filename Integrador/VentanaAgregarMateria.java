@@ -65,11 +65,6 @@ public class VentanaAgregarMateria extends JFrame {
                     byte notaPromocion = Byte.parseByte(campoNotaPromocion.getText().trim());
                     boolean optativa = checkOptativa.isSelected();
 
-                    panelCentral.add(new JLabel("Correlativas (puedes elegir varias):"));
-                    listaCorrelativas = new JList<>(plan.materias.toArray(new Materia[0]));
-                    listaCorrelativas.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-                    JScrollPane scrollPane = new JScrollPane(listaCorrelativas);
-                    panelCentral.add(scrollPane);
 
                     Materia nuevaMateria = new Materia();
                     nuevaMateria.setNombre(nombre);
@@ -98,7 +93,6 @@ public class VentanaAgregarMateria extends JFrame {
     }
 
     private void actualizarListaCorrelativas(Materia nuevaMateria) {
-        // Agregar la nueva materia a la lista de correlativas
         DefaultListModel<Materia> modelo = new DefaultListModel<>();
         for (Materia materia : plan.materias) {
             modelo.addElement(materia);

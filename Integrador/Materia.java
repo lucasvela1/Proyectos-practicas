@@ -6,7 +6,6 @@ public class Materia{
     private byte cuatrimestre;
     private byte notaPromocion;
     private boolean optativa;
-    private byte notaTotal;
     ArrayList<Materia> correlativas = new ArrayList<>();
 
     public String getNombre(){
@@ -30,7 +29,9 @@ public class Materia{
     }
 
     public void addCorrelativa(Materia materia){
-        this.correlativas.add(materia);
+        if (materia != null && !correlativas.contains(materia)) {
+           correlativas.add(materia);
+        }
     }
 
     public byte getNotaPromocion() {
@@ -49,13 +50,6 @@ public class Materia{
         this.optativa = optativa;
     }
 
-    public byte getNotaTotal() {
-        return notaTotal;
-    }
-
-    public void setNotaTotal(byte notaTotal) {
-        this.notaTotal = notaTotal;
-    }
 
     @Override
     public String toString() {
