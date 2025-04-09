@@ -1,0 +1,9 @@
+{
+  "LINE": "LCD8 - Montaje",
+  "MODEL": "91DB50X3500",
+  "API_MES": "http://mes.newsan.com.ar",
+  "DW_API": "http://arushap41:3001",
+  "ST_SOCKET_API": "http://arushap41:3030/",
+  "FechaInicio":"28-03-2025%2006:00",
+  "ProduccionTotal":7203
+}
